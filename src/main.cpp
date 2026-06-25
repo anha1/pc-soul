@@ -28,6 +28,10 @@
 #define LOG_PRINTLN(x)  { Serial.println(x); TelnetStream.println(x); }
 #define LOG_PRINTF(...) { Serial.printf(__VA_ARGS__); TelnetStream.printf(__VA_ARGS__); }
 
+#ifndef ESP_FIRMWARE_PASS
+#error "ESP_FIRMWARE_PASS is not defined. Did you export the environment variable?"
+#endif
+
 const IPAddress mothershipIp = IPAddress(10, 1, 1, 5);
 
 volatile bool isMothershipUp = false;
@@ -36,7 +40,7 @@ volatile bool isBroken = false;
 
 const char* ssid       = WIFI_SSID;
 const char* wifi_password   = WIFI_PASSWORD;
-const char* firmware_upload_password = "YOUR_PASSWORD_HERE";
+const char* firmware_upload_password = ESP_FIRMWARE_PASS;
 
 const int LOGICAL_STEPS = 9;
 const int PIN_NEOPIXELS = 6; 
